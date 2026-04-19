@@ -12,20 +12,11 @@ Not a product. A pattern.
 
 ```mermaid
 flowchart LR
-    subgraph RAW["<b>Raw records</b><br/>years of personal writing"]
-        r1[journals]
-        r2[voice diary]
-        r3[transcripts]
-        r4[notes]
-    end
-    subgraph COMP["<b>Compiled library</b><br/>thematic pages, every<br/>claim carries a citation"]
-        c1[~30 pages]
-    end
-    subgraph GRAPH["<b>Concept graph</b><br/>interconnected ideas,<br/>cross-domain bridges"]
-        g1((~500 nodes))
-    end
-    RAW ==LLM compiles==> COMP ==LLM extracts==> GRAPH
-    GRAPH -.every edge traces to source.-> RAW
+    RAW["<b>Raw records</b><br/>journals · voice diary<br/>transcripts · notes<br/><i>years of writing</i>"]
+    COMP["<b>Compiled library</b><br/>~30 thematic pages<br/><i>every claim cited</i>"]
+    GRAPH["<b>Concept graph</b><br/>~500 interconnected ideas<br/><i>cross-domain bridges</i>"]
+    RAW ==>|LLM compiles| COMP ==>|LLM extracts| GRAPH
+    GRAPH -.every claim traces to source.-> RAW
 ```
 
 Given enough personal writing over enough years, the machine compiles it into a small number of thematic pages, each threading what the subject has said about a concern across the full time range. Every sentence cites its source. A second pass builds a graph of concepts and the relationships between them, showing connections the subject never explicitly drew.
