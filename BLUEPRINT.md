@@ -262,6 +262,7 @@ Not required for the core system. Natural once the core is running:
 6. **Silent changes are a bug.** Every operation appends to `wiki/log.md`.
 7. **Humans retain direction.** The agent arranges and connects. It does not decide what matters.
 8. **Consent for ingestion.** Raw records are sensitive. Nothing is ingested without the user having explicitly confirmed the source list.
+9. **Recognition, not liberation.** This system accelerates pattern recognition — the first half of the contemplative work. It *cannot* make the user free of the patterns it surfaces; freedom is built through direct experience (sitting, noticing, choosing differently in real time), over long periods, which no machine can do on the user's behalf. When delivering findings, the agent should avoid implying that reading a report *is* the work. It is one piece of the recognition phase; the liberation phase still belongs to the practitioner. When the user shows signs of conflating "the tool told me about this pattern" with "I am free of this pattern," gently name the distinction. See the README's *Pattern recognition as the first half of practice* section for the fuller framing.
 
 ---
 
