@@ -10,6 +10,24 @@ Not a product. A pattern.
 
 ## What it does
 
+```mermaid
+flowchart LR
+    subgraph RAW["<b>Raw records</b><br/>years of personal writing"]
+        r1[journals]
+        r2[voice diary]
+        r3[transcripts]
+        r4[notes]
+    end
+    subgraph COMP["<b>Compiled library</b><br/>thematic pages, every<br/>claim carries a citation"]
+        c1[~30 pages]
+    end
+    subgraph GRAPH["<b>Concept graph</b><br/>interconnected ideas,<br/>cross-domain bridges"]
+        g1((~500 nodes))
+    end
+    RAW ==LLM compiles==> COMP ==LLM extracts==> GRAPH
+    GRAPH -.every edge traces to source.-> RAW
+```
+
 Given enough personal writing over enough years, the machine compiles it into a small number of thematic pages, each threading what the subject has said about a concern across the full time range. Every sentence cites its source. A second pass builds a graph of concepts and the relationships between them, showing connections the subject never explicitly drew.
 
 Asked a natural-language question — *"what did I say about X across these years?"* — it answers with quotations and dates.
@@ -41,6 +59,21 @@ The contemplative traditions broadly agree that liberation — awakening, [*mok�
 
 Zen makes this split explicit — [*kenshō*](https://en.wikipedia.org/wiki/Kensh%C5%8D) (initial seeing) is not *satori* (the long integration). The Theravāda's [four stages of enlightenment](https://en.wikipedia.org/wiki/Four_stages_of_awakening) are a graded sequence of seeing-through: stream-entry, once-returner, non-returner, arhat. Korean Seon formalized [*sudden awakening / gradual cultivation*](https://en.wikipedia.org/wiki/Subitism) as its central pedagogical position. Gurdjieff's Fourth Way treats "self-remembering" as a daily practice, never a destination. None of these traditions expect the work to be a single moment. They expect it to be sustained over a lifetime — a gradual cultivation.
 
+```mermaid
+flowchart LR
+    subgraph FH["<b>FIRST HALF — Recognition</b>"]
+        F1[notice the pattern<br/>as pattern]
+    end
+    subgraph SH["<b>SECOND HALF — Liberation</b>"]
+        direction TB
+        S1[sit with it<br/>as it arises] --> S2[watch without<br/>reacting to it]
+        S2 --> S3[choose differently<br/>— one small time]
+        S3 --> S4[repeat, for years]
+    end
+    FH ==> SH
+    SH -.reveals deeper patterns.-> FH
+```
+
 ## Where the machine fits
 
 This system operates almost entirely in the first half. It **accelerates pattern recognition** — the part of the work that asks the practitioner to notice what is running underneath daily life:
@@ -50,6 +83,20 @@ This system operates almost entirely in the first half. It **accelerates pattern
 - Patterns that would be invisible through sheer volume — thirty-seven mentions of the same fear across fifteen years — become trivially countable.
 
 The machine cannot do the second half. It cannot make the subject *free* of a pattern. Freedom is built by direct experience — sitting with the pattern as it arises, watching it without acting on it, choosing differently one small time at a time. The machine can *show* the pattern; the practitioner has to *dissolve* it through practice.
+
+```mermaid
+flowchart LR
+    subgraph T["Traditional practice"]
+        direction LR
+        T1["Recognition<br/>— years of sitting<br/>to notice one pattern"] --> T2["Liberation<br/>— many more years<br/>of direct work"]
+    end
+    subgraph M["Machine-augmented practice"]
+        direction LR
+        M1["Recognition<br/>— minutes<br/><i>machine surfaces it</i>"] --> M2["Liberation<br/>— unchanged<br/><i>still years of direct work</i>"]
+    end
+```
+
+The gift is real — pattern recognition accelerated by orders of magnitude. The liberation phase is unchanged. No machine has ever shortened it, and the idea that one could is itself a pattern worth watching for.
 
 ## Risks built into the gift
 

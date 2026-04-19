@@ -10,6 +10,8 @@
 
 ## 1 · Architecture
 
+### 1.1 Data layers
+
 ```mermaid
 flowchart TB
     subgraph RAW["Layer 1 · Raw (immutable)"]
@@ -43,6 +45,73 @@ flowchart TB
 - Data flow is strictly one-directional. Raw is never rewritten.
 - Upper layers are fully regenerable from lower layers. When wrong, discard and recompile — never patch in place.
 - Every compiled sentence must carry a citation back to raw.
+
+### 1.2 Operational view
+
+How the layers, skills, schedulers, and the user interact at runtime:
+
+```mermaid
+flowchart TB
+    User(["👤 User"])
+
+    subgraph INPUTS["Inputs · optional pipelines"]
+        Voice["voice app →<br/>Whisper / AssemblyAI"]
+        YT["yt-dlp →<br/>transcription"]
+        Manual["manual notes<br/>(Obsidian, Bear, …)"]
+    end
+
+    subgraph RAW["raw/ — immutable"]
+        RawFiles[journals · transcripts ·<br/>notes · voice]
+    end
+
+    subgraph SKILLS["Skills"]
+        SI["wiki-ingest"]
+        SG["graphify"]
+        SL["wiki-lint"]
+        SQ["wiki-query"]
+    end
+
+    subgraph COMPILED["Compiled layers"]
+        W["wiki/"]
+        G["graph/"]
+    end
+
+    subgraph SCHED["Scheduler"]
+        Daily["daily —<br/>ingest new raw +<br/>rebuild graph if changed"]
+        Weekly["weekly —<br/>wiki-lint +<br/>cross-domain digest"]
+    end
+
+    subgraph OUT["Output surfaces (optional)"]
+        Notion["Notion sync"]
+        TG["Telegram digest"]
+    end
+
+    Voice --> RawFiles
+    YT --> RawFiles
+    Manual --> RawFiles
+
+    User -->|asks question| SQ
+    User -->|adds notes| Manual
+
+    Daily --> SI
+    Daily --> SG
+    Weekly --> SL
+    Weekly --> SG
+
+    RawFiles --> SI
+    SI --> W
+    W --> SG
+    SG --> G
+    W --> SL
+    W --> SQ
+    G --> SQ
+
+    SQ -->|answer with citations| User
+    SG --> Notion
+    Weekly --> TG
+```
+
+This is the picture the agent should be able to reconstruct from scratch after reading §§3–5.
 
 ---
 
