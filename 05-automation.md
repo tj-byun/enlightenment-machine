@@ -10,6 +10,15 @@ This chapter places the system in that longer story.
 
 Human beings have externalized mental operations before. The present moment is not the beginning; it is the fourth of an uneven series.
 
+```mermaid
+timeline
+    title Four waves of externalizing the mind
+    ~3000 BCE : Writing : memory moves onto clay and papyrus : Plato worries real memory will hollow out
+    ~1450 CE  : Print : knowledge becomes copyable : personal mastery of a library becomes less critical
+    1990s     : Digital storage & search : outside retrieval overtakes inside recall : 'search engines think for us', critics say
+    Now       : AI synthesis : reading of memory externalized : not just storage — interpretation itself
+```
+
 | When | Wave | What was externalized |
 |------|------|----------------------|
 | ~3000 BCE | **Writing** | Memory, until then an oral faculty, moves onto clay and papyrus. Plato warns, in the *Phaedrus*, that writing will hollow out real memory. He is partly right. |

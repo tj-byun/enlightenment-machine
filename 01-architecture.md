@@ -18,12 +18,51 @@ The LLM reads its own library and extracts concepts and the relationships betwee
 
 ## The data flow is one-directional
 
-```
-RAW (immutable)  →  COMPILED LIBRARY  →  CONCEPT GRAPH
-                    (rebuildable)        (rebuildable)
+```mermaid
+flowchart TB
+    Raw["<b>Layer 1 · Raw records</b><br/>Journals · notes · recordings · memos<br/><i>immutable — never edited</i>"]
+    Compiled["<b>Layer 2 · Compiled library</b><br/>Thematic pages · every sentence cited<br/><i>rebuildable from raw</i>"]
+    Graph["<b>Layer 3 · Concept graph</b><br/>Nodes · edges · clusters<br/><i>rebuildable from library</i>"]
+
+    Raw -->|LLM compiles| Compiled
+    Compiled -->|LLM extracts concepts & relations| Graph
+    Graph -.each claim traces back.-> Raw
 ```
 
 The raw layer is never rewritten. The two upper layers can be regenerated at will. When something is wrong in the compiled view, the answer is not to patch the compilation — it is to discard it and compile again. This invariant is what allows the system to be trusted.
+
+## What the compiled graph tends to look like
+
+A concept graph built from a single person's records, after the LLM has read everything and extracted entities and relations, has the topology of a small social network — a few high-degree hub concepts surrounded by dense local clusters, with occasional bridge edges connecting domains that the subject kept in different folders.
+
+```mermaid
+graph TD
+    core((core<br/>concept))
+    c1{{cluster A}}
+    c2{{cluster B}}
+    c3{{cluster C}}
+    n1[concept]
+    n2[concept]
+    n3[concept]
+    n4[concept]
+    n5[concept]
+    n6[concept]
+    bridge([unexpected<br/>bridge])
+
+    core --- c1
+    core --- c2
+    core --- c3
+    c1 --- n1
+    c1 --- n2
+    c2 --- n3
+    c2 --- n4
+    c3 --- n5
+    c3 --- n6
+    n2 -.-> bridge
+    bridge -.-> n5
+```
+
+The dotted bridge edge is often the most interesting finding — a connection the subject never explicitly drew, sitting there in the graph because the language of the two concepts overlapped across years of separate writing.
 
 ---
 

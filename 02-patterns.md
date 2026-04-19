@@ -14,6 +14,11 @@ Twelve years later the same person writes, in different words, about the same th
 
 The system notices, because the keywords drift only a little while the structure stays stable. A single such finding may be the most truthful long-range portrait one can have of oneself.
 
+```mermaid
+flowchart LR
+    Y1["Year 1<br/>sentence written<br/>(then forgotten)"] -.years of silent operation.-> Y5["Year 5<br/>still running<br/>underneath decisions"] -.-> Y12["Year 12<br/>same structure<br/>rediscovered"]
+```
+
 ---
 
 ## Pattern two — the same feeling, oppositely diagnosed
@@ -25,6 +30,11 @@ Restlessness, in one year's diary, is named as a problem — a leak of attention
 The emotion has not changed; the interpretation has flipped.
 
 The system can lay the two sentences beside each other and produce a map of that change. Growth, here, is legible not as a feeling but as a 180-degree inversion in the interpretive stance.
+
+```mermaid
+flowchart LR
+    A["<b>Year N</b><br/>restlessness = symptom<br/><i>something wrong</i>"] ==6 years==> B["<b>Year N+6</b><br/>restlessness = signal<br/><i>standing at the frontier</i>"]
+```
 
 ---
 
@@ -38,6 +48,14 @@ The system keeps the refutation. Years later it can check: does the refuted beli
 
 Most often the answer is partial — the belief is named as false while still operating as true. The system can show the gap.
 
+```mermaid
+flowchart LR
+    A[belief X<br/>held] --> B[belief X<br/>refuted in writing]
+    B -.still running.-> C[belief X<br/>showing up in<br/>new behavior]
+    B --> D{gap<br/>between<br/>thought & act}
+    C --> D
+```
+
 ---
 
 ## Pattern four — external observation meeting self-image
@@ -50,6 +68,15 @@ The system can retrieve such a remark and place it beside the subject's own self
 
 The contradiction is the data. Neither portrait alone is the whole person; the contradiction is closer.
 
+```mermaid
+flowchart TB
+    Self["<b>Self-portrait</b><br/>'I am X'"]
+    Ext["<b>External observer</b><br/>'You are Y'"]
+    Gap["<b>The contradiction is the data</b><br/>closer to truth than<br/>either portrait alone"]
+    Self --> Gap
+    Ext --> Gap
+```
+
 ---
 
 ## Pattern five — a ceiling that has been exceeded but never erased
@@ -61,6 +88,12 @@ A person writes, in a private note, a sober estimate of their own ceiling — th
 The note, however, is still on file, unrevised.
 
 The system can retrieve it and place it beside current reality. The question it poses is not celebratory; it is practical: *to what extent is this obsolete estimate still directing present decisions?* Old estimates often keep working silently.
+
+```mermaid
+flowchart LR
+    H["Year N<br/><b>ceiling hypothesis</b><br/>'my limit is X'"] -.still on file.-> Q{still directing<br/>present decisions?}
+    R["Year N+5<br/><b>reality</b><br/>quietly past X"] -.contradicts.-> Q
+```
 
 ---
 
