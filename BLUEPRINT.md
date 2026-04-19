@@ -3,6 +3,8 @@
 > You are reading the operational spec for the Enlightenment Machine. See [README](./README.md) for the human-facing overview of what this system is and why it matters.
 >
 > This file is written to be consumed by a capable coding agent (e.g. Claude Code) with filesystem access, long context, and tool use. If you are that agent, read this entire file end-to-end before taking any action, then follow the replication checklist in §9.
+>
+> **Direct lineage**: this pattern operationalizes [Andrej Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) (April 2026) and draws on the long tradition of [Zettelkasten](https://en.wikipedia.org/wiki/Zettelkasten) and [*Building a Second Brain*](https://www.buildingasecondbrain.com/book). The concept graph layer wraps [safishamsi/graphify](https://github.com/safishamsi/graphify).
 
 ---
 
@@ -48,13 +50,13 @@ flowchart TB
 
 | Component | Role | Required? |
 |-----------|------|-----------|
-| **Claude Code** or equivalent agent with long context + filesystem + shell | Executes the skills, performs compilation | Yes |
-| **Markdown filesystem** (Obsidian / plain folder) | Holds raw + compiled text | Yes |
-| **Git** | Version control of compiled layer; rollback on bad runs | Yes |
-| **Python 3** with `networkx`, `python-louvain`, `pyvis` | Graph extraction, community detection, HTML rendering | Required for Layer 3 |
-| **Scheduler** (launchd macOS / cron Linux / Task Scheduler Windows) | Daily & weekly automations | Required for a maintained system |
-| **Transcription pipeline** (AssemblyAI / Whisper / etc.) | Audio → text for voice diaries, podcasts | Optional — only if ingesting audio |
-| **Notion / Telegram / Gmail MCP servers** | Output surfacing, secondary ingestion | Optional |
+| [**Claude Code**](https://www.anthropic.com/claude-code) or equivalent agent with long context + filesystem + shell | Executes the skills, performs compilation | Yes |
+| [**Obsidian**](https://obsidian.md/) or plain markdown folder | Holds raw + compiled text | Yes |
+| [**Git**](https://git-scm.com/) | Version control of the compiled layer; rollback on bad runs | Yes |
+| **Python 3** with [`networkx`](https://networkx.org/), [`python-louvain`](https://github.com/taynaud/python-louvain), [`pyvis`](https://github.com/WestHealth/pyvis) | Graph extraction, community detection, HTML rendering | Required for Layer 3 |
+| Platform scheduler: [launchd](https://www.launchd.info/) (macOS), [cron](https://en.wikipedia.org/wiki/Cron) (Linux), [Task Scheduler](https://learn.microsoft.com/en-us/windows/win32/taskschd/task-scheduler-start-page) (Windows) | Daily & weekly automations | Required for a maintained system |
+| Transcription: [AssemblyAI](https://www.assemblyai.com/) or [OpenAI Whisper](https://github.com/openai/whisper) | Audio → text for voice diaries, podcasts | Optional — only if ingesting audio |
+| [Notion](https://developers.notion.com/), [Telegram Bot API](https://core.telegram.org/bots/api), [Gmail API](https://developers.google.com/gmail/api) via [MCP servers](https://modelcontextprotocol.io/) | Output surfacing, secondary ingestion | Optional |
 
 ---
 
@@ -184,29 +186,34 @@ description: Health-check the compiled wiki. Report missing citations, broken cr
 
 ### 4.4 `graphify` — compiled library → concept graph
 
+> **Reference implementation**: [**graphify** by Safi Shamsi](https://github.com/safishamsi/graphify).
+> The skill below wraps that tool; the extraction logic, community detection, and HTML renderer all live in that upstream project. Clone it and follow its README for installation. The skill's job is to point it at `wiki/`, emit output into `graph/`, and expose the resulting graph via MCP.
+
 File: `~/.claude/skills/graphify/SKILL.md`
 
 ```markdown
 ---
 name: graphify
-description: Extract entities and relationships from the compiled wiki, cluster them, and emit a JSON + interactive HTML visualization.
+description: Extract entities and relationships from the compiled wiki, cluster them, and emit a JSON + interactive HTML visualization. Wraps safishamsi/graphify.
 ---
 
 # graphify
 
 ## Procedure
 1. Read every page under `wiki/`.
-2. Use the LLM to extract entities (concepts, people, works, places, time periods).
-3. Use the LLM to extract relationships between entities. Label each edge as:
-   - `EXTRACTED` — entities co-occur in a sentence expressing the relation explicitly
-   - `INFERRED` — relation is the LLM's reading of the broader context; attach a confidence score
-4. Run community detection (Louvain via `python-louvain`) over the resulting graph.
-5. Write `graph/graph.json` — nodes, edges (with label + provenance), community assignments.
-6. Render `graph/graph.html` as an interactive graph (pyvis or equivalent). Self-contained; no CDN deps (inline vis-network so the file works offline).
-7. Write `graph/GRAPH_REPORT.md` with node count, edge count, extraction breakdown, top-degree hubs, community hub list.
+2. Invoke the graphify tool (https://github.com/safishamsi/graphify) to:
+   - Extract entities (concepts, people, works, places, time periods)
+   - Extract relationships between entities, labeled as:
+     - `EXTRACTED` — entities co-occur in a sentence expressing the relation explicitly
+     - `INFERRED` — relation is the LLM's reading of the broader context; attach a confidence score
+3. Community detection ([Louvain](https://en.wikipedia.org/wiki/Louvain_method) via [python-louvain](https://github.com/taynaud/python-louvain)) runs as part of the graphify pipeline.
+4. Write outputs to `graph/`:
+   - `graph.json` — nodes, edges (with label + provenance), community assignments
+   - `graph.html` — interactive graph rendered with [pyvis](https://github.com/WestHealth/pyvis). Self-contained: inline [vis-network](https://visjs.github.io/vis-network/) so the file works offline
+   - `GRAPH_REPORT.md` — node count, edge count, extraction breakdown, top-degree hubs, community hub list
 
 ## MCP tools to expose
-When the graph is live, expose these tools via an MCP server for the agent to call from wiki-query and interactive sessions:
+When the graph is live, expose these tools via an MCP server for the agent to call from `wiki-query` and interactive sessions:
 - `query_graph(question)` → relevant nodes + communities
 - `get_neighbors(node)` → adjacent concepts
 - `shortest_path(a, b)` → path through graph

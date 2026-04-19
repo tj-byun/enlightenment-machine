@@ -28,7 +28,7 @@ Run against any sufficiently long written record, the system tends to surface a 
 
 That a machine can read a person's records and reliably produce the repeating structures within them is itself a philosophical event. **A pattern that can be mechanically extracted is, precisely to that extent, a mechanical pattern.**
 
-Gurdjieff's tradition says most of what we call "I" is a machine; waking up begins with seeing it. The Buddhist tradition has named the same phenomenon for millennia — *karma*, *vāsanā* (habit-energies). Both are claiming that the self, to a large degree, is conditioned repetition.
+[Gurdjieff](https://en.wikipedia.org/wiki/George_Gurdjieff)'s tradition says most of what we call "I" is a machine; waking up begins with seeing it. The Buddhist tradition has named the same phenomenon for millennia — *[karma](https://en.wikipedia.org/wiki/Karma_in_Buddhism)*, *[vāsanā](https://en.wikipedia.org/wiki/V%C4%81san%C4%81)* (habit-energies). Both are claiming that the self, to a large degree, is conditioned repetition.
 
 This system, unexpectedly, has become one of the most direct ways to map that territory. It shows the fossil (the repeating structure) and occasionally the crack (the moment it was interrupted). What it cannot show is the part that does the watching — the witness, the knower behind the known. That part remains the subject's work.
 
@@ -49,6 +49,15 @@ However rich this kind of system becomes, it does not replace the teacher, the p
 - Anyone with ~3+ years of written personal material and the patience to design the compile prompts carefully.
 - Anyone who has noticed that their memory of their past is continually edited by the present mood, and would like an immovable record to consult.
 - Anyone curious about the automation of inner observation and willing to think about what that automation displaces.
+
+## Related work & references
+
+- [**Karpathy's LLM Wiki**](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — **the direct ancestor.** Andrej Karpathy's April 2026 gist laying out the pattern of an LLM-maintained, incrementally-compiled personal wiki that sits between you and your raw notes. This blueprint is largely an operationalization of that idea with added structure for the raw/compiled/graph layers, concept-graph extraction, scheduled maintenance, and agent-driven replication.
+- [*Building a Second Brain*](https://www.buildingasecondbrain.com/book) (Tiago Forte, 2022) — the contemporary Second Brain movement this system extends
+- [Zettelkasten](https://en.wikipedia.org/wiki/Zettelkasten) — Niklas Luhmann's ~90,000-card method from the 1960s, the distant ancestor of this pattern
+- [Obsidian](https://obsidian.md/), [Roam](https://roamresearch.com/), [Notion](https://notion.so/) — contemporary personal-knowledge tools that implement Layer 1–2 manually
+- [graphify](https://github.com/safishamsi/graphify) — the reference implementation this system's `graphify` skill wraps (by Safi Shamsi)
+- [Claude Code](https://www.anthropic.com/claude-code) — the agent this blueprint is written for; any comparable long-context, tool-using agent works
 
 ---
 
